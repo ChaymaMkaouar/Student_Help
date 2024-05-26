@@ -1,0 +1,72 @@
+{% extends 'Student_Help/base.html' %}
+{% load static %}
+{% block title %}Enseignant{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+{% endblock %} <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% block content %}
+<section class="course">
+
+    <div class="box">
+        <img src="{% static 'image/mtc.jpg' %}" alt="" height="300px" width="350px">
+        <h3>Microsoft tech club</h3>
+        <p>Le Microsoft Technologie Club a été créé en octobre 2010. Il se concentre sur les nouvelles technologies, notamment Microsoft. 
+        <div class="icons">
+            <p> <i class="fas fa-envelope"></i>contact@mtcisetsfax.tn</p>
+        </div>
+    </div>
+
+    <div class="box">
+       
+        <img src="{% static 'image/rob.jpg' %}" alt="">
+  
+        <h3>Autonome Robotique Club</h3>
+        <p>Autonome Robotique Club Iset est un club qui favorise l'apprentissage de la robotique et de développer l'aspect créatif et technique de chacun.</p>
+        <div class="icons">
+            <p> <i class="fas fa-envelope"></i>clubarci577@gmail.com</p>
+        </div>
+    </div>
+
+    <div class="box">
+        <img src="{% static 'image/ider.jpg' %}" alt="">
+        <h3>Ider</h3>
+        <p>IDER est l'abréviation d'innovation et développement pour un entrepreneur rationnel.</p>
+        <div class="icons">
+            <p> <i class="fas fa-envelope"></i>club.iset@ider.tn</p>
+        </div>
+    </div>
+
+    <div class="box">
+        <img src="{% static 'image/are.png' %}" alt="">
+        <h3>Club Aéromodélisme </h3>
+        <p>Club Aéromodélisme Iset Sfax CAIS est un club dans les activités concernant les avions </p>
+        <div class="icons">
+            <p> <i class="fas fa-envelope"></i>
+                isetaeromodelisme@gmail.com</p>
+        </div>
+    </div>
+
+    <div class="box">
+       
+        <img src="{% static 'image/sos.jpg' %}" alt="">
+        <h3>Club Ambassadeurs VESOS TN </h3>
+        <p>Club Ambassadeurs VESOS TN ISET SFAX a pour but d'aider les autres.</p>
+      
+        <div class="icons">
+            <p> <i class="fas fa-envelope"></i>
+                jihen.mezghanni@sos-tunisie.org</p>
+        </div>
+    </div>
+
+    <div class="box">
+        <img src="{% static 'image/civil.jpg' %}" alt="">
+        <h3>Club Génie civil </h3>
+        <p>Club Génie civil ISET Sfax c'est club pour les étudients en génie civil </p>
+        <div class="icons">
+            <p> <i class="fas fa-envelope"></i>
+                civilengineeringclub.isetsfax@gmail.com</p>
+        </div>
+    </div>
+
+</section>
+{% endblock %}

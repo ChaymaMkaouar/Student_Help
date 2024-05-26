@@ -1,0 +1,16 @@
+<div>
+    <h2>{{ post.title }}</h2>
+    <p>{{ post.content }}</p>
+    <p>Posté par {{ post.user }} le {{ post.date }}</p>
+</div>
+<div>
+    <h3>Commentaires</h3>
+    {% for comment in post.comments %}
+        <p>{{ comment.user }} a dit : {{ comment.text }}</p>
+    {% endfor %}
+    <form method="post" action="{% url 'add_comment' post.id %}">
+        {% csrf_token %}
+        <textarea name="text"></textarea>
+        <button type="submit">Ajouter commentaire</button>
+    </form>
+</div>

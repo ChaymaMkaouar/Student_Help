@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}Post{% endblock %}
+    {% block styles %}
+    <link rel="stylesheet" href="../assets/css/header.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <link rel="stylesheet" href="{% static 'css/style5.css' %}">
+    {% endblock %}
+</head>
+<body class="bod">
+    {% block body %}
+<nav>
+    <ul>
+<li>
+<a href="#" class="logo">
+<img src="{% static 'image/logo.jpg' %}" alt="">
+  <span>Page d'accueil</span>
+</a>
+</li>
+
+        <li><a href="../../admin/produits/listeProduit.php" class="<?php if($currentPage == 'admin/listeProduit.php') echo 'active' ?>" id="aa">
+            <i class='bx bx-news'></i>
+            <span class="nav-item">Nouveauté Iset</span>
+        </a></li>
+        <li><a href="{% url 'Student_Help:recpost'%}" class="" id="aa">
+            <i class="fa-regular fa-comment"></i>
+            <span class="nav-item">Recommandations</span>
+        </a></li>
+
+        <li><a href="{% url 'Student_Help:logPost'%}" class="<?php if($currentPage == '../admin/categorie/listeCateg.php') echo 'active' ?>" id="aa">
+            <i class='bx bxs-building-house' ></i>
+            <span class="nav-item">Logement</span>
+        </a></li>
+        <li><a href="{% url 'Student_Help:logTrans'%}" class="<?php if($currentPage == '../admin/categorie/listeCateg.php') echo 'active' ?>" id="aa">
+            <i class='bx bxs-car' ></i>
+            <span class="nav-item">Transport</span>
+        </a></li>
+
+
+        <li><a href="{% url 'Student_Help:stgPost'%}" class="<?php if($currentPage == 'admin/categorie/listeCateg.php') echo 'active' ?>" id="aa">
+            <i class="fa-solid fa-briefcase"></i>  
+            <span class="nav-item"> Stage</span>
+        </a></li>
+        <li><a href="{% url 'Student_Help:evPost' %}" class="<?php if($currentPage == 'admin/categorie/listeCateg.php') echo 'active' ?>" id="aa">
+            <i class="fa-solid fa-calendar-days"></i>  
+            <span class="nav-item"> Evenement</span>
+        </a></li>
+    </ul>   
+
+</nav>
+
+<header> 
+    {% endblock %}
+
+
+
+
+
+
+
+</body>
+</html>
+{% block content %}{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'Student_Help/base.html' %}
+{% load static %}
+{% block title %}Enseignant{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+{% endblock %} <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% block content %}
+<section class="price">
+    <div class="container">
+        <div class="box">
+            <img src="{% static 'image/inf.jpg' %}" alt="" width="366px" height="400px">
+            <ul>
+                <li>Département Informatique</li>
+            </ul>
+        </div>
+        <div class="box">
+            <img src="{% static 'image/01264579617-img.jpg' %}" alt="" width="366px" height="400px">
+            <ul>
+                <li>Bibliothèque</li>
+            </ul>
+        </div>
+        <div class="box">
+            <img src="{% static 'image/ISET-Sfax.webp' %}" alt="" width="366px" height="400px">
+            <ul>
+                <li>Département Informatique</li>
+            </ul>
+        </div>
+        <div class="box">
+            <img src="{% static 'image/iset.png' %}" alt="" width="700px" height="400px">
+            <ul>
+                <li>Département Informatique</li>
+            </ul>
+        </div>
+        <div class="box">
+            <img src="{% static 'image/centre1.jpg' %}" alt="" width="366px" height="400px">
+            <ul>
+                <li>Département Informatique</li>
+            </ul>
+        </div>
+        
+    </div>
+<style>
+    .container {
+    display: flex; /* Use flexbox to align items */
+    flex-wrap: wrap; /* Allow items to wrap to the next line if necessary */
+}
+
+.box {
+    flex: 1; /* Each box takes equal space */
+    margin: 10px; /* Add margin between boxes */
+}
+
+</style>    
+</section>
+{% endblock %}

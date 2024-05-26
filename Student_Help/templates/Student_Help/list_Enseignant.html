@@ -1,0 +1,42 @@
+{% extends 'Student_Help/base.html' %}
+{% load static %}
+{% block title %}Enseignant{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+{% endblock %} <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% block content %}
+<br>
+<center>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="box">
+                <form method="GET" class="d-flex" action="{% url 'Student_Help:list_Enseignant' %}">
+                    <input type="text" class="form-control me-2" name="q" placeholder="Rechercher..." >
+                    <button type="submit" class="btn btn-outline-success"><i class="bi bi-search"></i> <i class="fa-solid fa-magnifying-glass"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</center>
+
+<br>
+
+{% csrf_token %}
+<section class="teacher">
+{% for ens in list %}
+    <div class="box">
+            <img src='/media/{{ ens.image }}' alt="">
+        <h3>{{ ens.nom }} {{ ens.prenom }}</h3>
+        <span>Enseignant</span>
+        <div class="share">
+            <a href="{% url 'Student_Help:send_email_to_enseignant' ens.email %}"class="fa fa-envelope"></a>{{ ens.email }}
+        </div>
+    </div>
+            {% endfor %}
+    </section>
+
+
+
+{% endblock %}

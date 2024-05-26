@@ -1,0 +1,12 @@
+{% extends 'Student_Help/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Supprimer</h1>
+    <p>Êtes-vous sûr de vouloir supprimer cet ami ?</p>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success">Confirmer la suppression</button>
+    </form>
+</div>
+{% endblock %}

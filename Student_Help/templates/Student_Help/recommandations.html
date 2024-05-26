@@ -1,0 +1,137 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EBook</title>
+    <link rel="stylesheet" href="{% static 'css/style6.css' %}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <nav>
+
+        <div class="left">
+
+            <div class="logo">
+                <img src="{{ recommandation.user.image.url }}">
+            </div>
+
+            <div class="search_bar">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Search EBook">
+
+            </div>
+
+        </div>
+
+        <div class="center">
+            <div class="publication-section">
+                <form id="publication-form" method="post" action="">
+                   {% csrf_token %}
+                   <div class="form-group">
+                </div>
+                <a href="{% url 'Student_Help:ajoutRec' %}"></a>
+                <button type="submit" class="btn btn-primary" id="redirectButton"><i class='bx bxs-share' style='color:#f0e3e3' ></i></button>
+                </form>
+             </div>
+            </div>
+    </nav>
+    <center>
+
+        <!------------main--------------->
+        <div class="main">
+        <div class="center">
+            {% for recommandation in recommandations %}
+            <div class="friends_post">
+                <div class="friend_post_top">
+                    <div class="img_and_name">
+                        <img src="/media/{{ recommandation.user.image }}">
+                        <div class="friends_name">
+                            <p class="friends_name">
+                                {{ recommandation.user.nom }} {{ recommandation.user.prenom }}
+                            </p>
+                            <p class="time">{{ recommandation.date }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="menu">
+                        <i class="fa-solid fa-ellipsis"></i>
+                    </div>
+                </div>
+                {% if recommandation.image %}
+                {{ recommandation.texte }}
+                <img src="{{ recommandation.image.url }}">
+                {% endif %}
+                
+                <div class="info">
+                    <div class="emoji_img">
+                        <!-- Ajoutez ici le contenu de la recommandation -->
+                    </div>
+                    <div class="comment">
+                        <!-- Ajoutez ici la logique pour afficher les commentaires -->
+                    </div>
+                </div>
+                <hr>
+                <div class="like">
+                    <div class="like_icon">
+                        <button class="like-btn btn btn-primary" data-id="{{ recommandation.id }}" style="border: none;"><i class='bx bxs-like' style='color:#000000 ; '  ></i></button>
+                    </div>
+                    <div class="like_icon">
+                        <button type="submit" class="btn btn-primary" data-id="{{ logement.id }}" style="border: none;"><i class='bx bx-message-rounded-dots' style='color:#000000'  ></i></button>
+                    </div>
+                </div>
+                <hr>
+                <div class="comment_warpper">
+                    <img src="{{ recommandation.user.image.url }}">
+                    <div class="circle"></div>
+                    <div class="comment_search">
+                        <input type="text" placeholder="Write a comment">
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <!-- logement -->
+            
+        </div>
+    </div>  
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Sélectionnez le bouton
+        const button = document.getElementById('redirectButton');
+    
+        // Ajoutez un écouteur d'événements pour le clic sur le bouton
+        button.addEventListener('click', function() {
+            // Redirigez l'utilisateur vers l'URL spécifiée
+            window.location.href = "{% url 'Student_Help:ajoutRec' %}";
+        });
+    </script>
+    <script>
+       
+       $(document).ready(function() {
+     // Afficher/Masquer le champ de commentaire
+     // Soumettre le formulaire de publication
+     $('#publication-form').submit(function(event) {
+       event.preventDefault();
+       var form = $(this);
+       var type = form.find('#type').val();
+       if (type === 'recommandation') {
+         window.location.href = "{% url 'Student_Help:ajoutRec' %}"; // Redirection vers la vue ajoutRec pour les recommandations
+       } else if (type === 'logement') {
+         window.location.href = "{% url 'Student_Help:ajoutLogement' %}"; // Redirection vers la vue ajoutLogement pour les logements
+       } else if (type === 'stage') {
+         window.location.href = "{% url 'Student_Help:ajoutStage' %}"; // Redirection vers la vue ajoutStage pour les stages
+       }else if (type === 'evenement') {
+         window.location.href = "{% url 'Student_Help:ajoutEvenement' %}"; // Redirection vers la vue ajoutStage pour les stages
+       }else if (type === 'transport') {
+         window.location.href = "{% url 'Student_Help:ajoutTransport' %}"; // Redirection vers la vue ajoutStage pour les stages
+       }
+     });})
+   
+    </script>
+</body>
+</html>

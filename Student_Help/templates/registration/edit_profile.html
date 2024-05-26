@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Edit Profile</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style type="text/css">
+    :root{
+  --violet:#6c5ce7;
+  --pink:#FC427B;
+  --gradient:linear-gradient(90deg, var(--violet), var(--pink));
+}
+    body {
+        margin: 0;
+        padding-top: 40px;
+        color: #2e323c;
+        background: var(--gradient);
+        position: relative;
+        height: 100%;
+    }
+    .container {
+        padding: 5% 15%;
+    }
+    .form-container {
+        border: 1px solid #ccc;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #ffffffb9; /* Fond blanc */
+    }
+    .form-control {
+        margin-bottom: 20px;
+    }
+    h1 {
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    button[type="submit"] {
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+<div class="container py-5">
+    <div class="form-container">
+        <h1>Edit Profile</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-secondary" type="submit">Update Profile</button>
+        </form>
+    </div>
+</div>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript">
+    // Add your JavaScript code here if needed
+</script>
+</body>
+</html>

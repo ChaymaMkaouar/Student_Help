@@ -1,0 +1,288 @@
+{% extends "Student_Help/base.html" %}
+{% block content %}
+<!-- Section pour publier -->
+<center>
+   <div class="publication-section">
+      <form id="publication-form" method="post" action="">
+         {% csrf_token %}
+         <div class="form-group">
+            <label for="type">Type de publication:</label>
+            <select class="form-control" id="type" name="type">
+               <option value="recommandation">Recommandation</option>
+               <option value="logement">Logement</option>
+               <option value="transport">Transport</option>
+               <option value="stage">Stage</option>
+               <option value="evenement">Événement</option>
+            </select>
+         </div>
+         <button type="submit" class="btn btn-primary"><i class='bx bxs-share' style='color:#f0e3e3' ></i></button>
+      </form>
+   </div>
+   <hr>
+   <br>
+   <br>
+   <!-- Liste des Publications -->
+
+   <!-- Section pour les Recommandations -->
+  
+
+{% for recommandation in recommandations %}
+<div class="card mb-3 text-center  smaller-card">
+   
+   <div class="card-body">
+      <div  class="d-flex justify-content-between align-items-center">
+         <h2>Publié par: {{ recommandation.user }}</h2>
+         <h3 class="card-text">Date: {{ recommandation.date }}</h3>
+
+      
+      {% if user.is_authenticated %}
+         {% if recommandation.user == user %}
+            <div class="d-flex">
+               <a href="{% url 'Student_Help:modifier_post' recommandation.pk %}" class="btn btn-outline-primary btn-sm mr-2"><i class="fas fa-pen"></i></a>
+               <a href="{% url 'Student_Help:supprimer_post' recommandation.pk %}" class="btn btn-outline-danger btn-sm"><i class="fas fa-trash"></i></a>
+            </div>
+         {% endif %}
+      {% endif %}
+   </div>
+            <h3 class="card-title">{{ recommandation.texte }}</h3>
+            {% if recommandation.image %}
+                <img src="{{ recommandation.image.url }}" style="height:300px; width:300px" alt="Image de la recommandation">
+            {% endif %}
+            <!-- Formulaire pour commenter -->
+            <form method="post" action="{% url 'Student_Help:like_recommandation' recommandation.id %}">
+               {% csrf_token %}
+               <input type="hidden" name="recommandation_id" value="{{ recommandation.id }}">
+               <br>
+               <span class="likesCount">{{ recommandation.likes_count }}</span> like(s) <br>
+               <button class="like-btn btn btn-primary" data-id="{{ recommandation.id }}"><i class='bx bxs-like' style='color:#ffffff'></i></button>
+               <button type="button" class="btn btn-primary toggle-comment" data-id="{{ recommandation.id }}"><i class='bx bx-message-rounded-dots' style='color:#f0e3e3'></i></button>
+               <a href="{% url 'Student_Help:list_comments' publication_id=recommandation.pk %}" class="btn btn-outline-primary"><i class="fas fa-bars"></i></a>
+            </form>
+               <br>
+               <form method="post" action="{% url 'Student_Help:creer_commentaire' recommandation.id %}">
+                  {% csrf_token %}
+                  <div class="comment-input d-none">
+                     <textarea class="form-control" name="comment" rows="3" placeholder="Ajouter un commentaire"></textarea><br>
+                     <button type="submit" class="btn btn-primary submit-comment" data-id="{{ recommandation.id }}"><i class='bx bx-check' style='color:#f0e3e3'></i></button>
+                     
+                 </div>
+               </form>
+            
+            <!-- Bouton pour aimer -->
+        </div>
+    </div>
+    <br>
+    <br>
+    <hr>
+{% endfor %}
+   <!-- Section pour les Logements -->
+
+   {% for logement in logements %}
+   <div class="card mb-3 text-center  smaller-card">
+      <div class="card-body">
+         <h2 class="card-text">Publié par: {{ logement.user}} </h2>
+         <h3 class="card-text">Date: {{ logement.date }}</h3>
+         {% if user.is_authenticated %}
+                          {% if logement.user == user %}
+         <a href="{% url 'Student_Help:modifier_post' logement.pk %}" class="btn btn-outline-primary"><i class="fas fa-pen"></i></a>
+         <a href="{% url 'Student_Help:supprimer_post' logement.pk %}" class="btn btn-outline-danger"><i class="fas fa-trash"></i></a>{% endif %}
+         {% endif %}
+         <h3 class="card-title">{{ logement.localisation }}</h3>
+         <p class="card-text">Description: {{ logement.description }}</p>
+      
+         {% if logement.image %}
+         <img src="{{ logement.image.url }}" style="height:300px; width:300px" alt="Image de la recommandation">
+     {% endif %}
+         
+         <form method="post" action="{% url 'Student_Help:like_logement' logement.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="logement_id" value="{{ logement.id }}">
+            <br>
+            <span class="likesCount">{{ logement.likes_count }}</span> like(s) <br>
+            <button class="like-btn btn btn-primary" data-id="{{ logement.id }}"><i class='bx bxs-like' style='color:#ffffff'></i></button>
+            <button type="button" class="btn btn-primary toggle-comment" data-id="{{ logement.id }}"><i class='bx bx-message-rounded-dots' style='color:#f0e3e3'></i></button>
+            <a href="{% url 'Student_Help:comments_logement' publication_id=logement.pk %}" class="btn btn-outline-primary"><i class="fas fa-bars"></i></a>
+            {% if user.is_authenticated %}
+            {% if logement.user != user %}
+            <a href="{% url 'Student_Help:reserver_logement' logement.pk %}" class="btn btn-outline-success"><i class="fas fa-calendar-plus"></i> Réserver</a>
+            {% endif %}
+            {% endif %}
+         
+        
+         </form> 
+         <br>
+         <form method="post" action="{% url 'Student_Help:creer_commentairel' logement.id %}">
+            {% csrf_token %}
+            <div class="comment-input d-none">
+               <textarea class="form-control" name="comment" rows="3" placeholder="Ajouter un commentaire"></textarea><br>
+               <button type="submit" class="btn btn-primary submit-comment" data-id="{{ logement.id }}"><i class='bx bx-check' style='color:#f0e3e3'></i></button>
+               
+           </div>
+         </form> 
+      
+      </div>
+   </div>
+   {% endfor %}
+   <!-- Section pour les Transports -->
+ 
+   {% for transport in transports %}
+   <div class="card mb-3 text-center  smaller-card">
+      <div class="card-body">
+         <h2 class="card-text">Publié par: {{ transport.user }} </h2>
+         <h3 class="card-text">Date: {{ transport.date }}</h3>
+         {% if user.is_authenticated %}
+                          {% if transport.user == user %}
+         <a href="{% url 'Student_Help:modifier_post' transport.pk %}" class="btn btn-outline-primary"><i class="fas fa-pen"></i></a>
+         <a href="{% url 'Student_Help:supprimer_post' transport.pk %}" class="btn btn-outline-danger"><i class="fas fa-trash"></i></a>{% endif %}
+         {% endif %}
+         <h3 class="card-title">{{ transport.départ }} - {{ transport.destination }}</h3>
+         <p class="card-text">Heure de départ: {{ transport.heure_dep }}</p>
+         <p class="card-text">Nombre de sièges disponibles: {{ transport.nbre_siège }}</p>
+         
+         {% if transport.image %}
+         <img src="{{ transport.image.url }}" style="height:300px; width:300px" alt="Image de la transport">
+     {% endif %}
+         <form method="post" action="{% url 'Student_Help:like_transport' transport.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="transport_id" value="{{ transport.id }}">
+            <br>
+            <span class="likesCount">{{ transport.likes_count }}</span> like(s) <br>
+            <button class="like-btn btn btn-primary" data-id="{{ transport.id }}"><i class='bx bxs-like' style='color:#ffffff'></i></button>
+            <button type="button" class="btn btn-primary toggle-comment" data-id="{{ transport.id }}"><i class='bx bx-message-rounded-dots' style='color:#f0e3e3'></i></button>
+            <a href="{% url 'Student_Help:comments_transport' publication_id=transport.pk %}" class="btn btn-outline-primary"><i class="fas fa-bars"></i></a>
+
+         </form>
+         <br>
+         <form method="post" action="{% url 'Student_Help:creer_commentairet' transport.id %}">
+            {% csrf_token %}
+            <div class="comment-input d-none">
+               <textarea class="form-control" name="comment" rows="3" placeholder="Ajouter un commentaire"></textarea><br>
+               <button type="submit" class="btn btn-primary submit-comment" data-id="{{ transport.id }}"><i class='bx bx-check' style='color:#f0e3e3'></i></button>
+               
+           </div>
+         </form> 
+          </div>
+   </div>
+   {% endfor %}
+   <!-- Section pour les Stages -->
+
+   {% for stage in stages %}
+   <div class="card mb-3 text-center  smaller-card">
+      <div class="card-body">
+         <h2 class="card-text">Publié par: {{ stage.user }} </h2>
+         <h3 class="card-text">Date: {{ stage.date }}</h3>
+         {% if user.is_authenticated %}
+                          {% if stage.user == user %}
+         <a href="{% url 'Student_Help:modifier_post' stage.pk %}" class="btn btn-outline-primary"><i class="fas fa-pen"></i></a>
+         <a href="{% url 'Student_Help:supprimer_post' stage.pk %}" class="btn btn-outline-danger"><i class="fas fa-trash"></i></a>{% endif %}
+         {% endif %}
+         <h3 class="card-title">{{ stage.société }}</h3>
+         <p class="card-text">Type de stage: {{ stage.get_typeStg_display }}</p>
+         <p class="card-text">Durée: {{ stage.durée }}</p>
+         <p class="card-text">Spécialité: {{ stage.spécialité }}</p>
+         {% if stage.image %}
+         <img src="{{ stage.image.url }}" style="height:300px; width:300px" alt="Image de la transport">
+     {% endif %}
+         <!-- Formulaire pour commenter -->
+         <form method="post" action="{% url 'Student_Help:like_stage' stage.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="stage_id" value="{{ stage.id }}">
+            <br>
+            <span class="likesCount">{{ stage.likes_count }}</span> like(s) <br>
+            <button class="like-btn btn btn-primary" data-id="{{ stage.id }}"><i class='bx bxs-like' style='color:#ffffff'></i></button>
+            <button type="button" class="btn btn-primary toggle-comment" data-id="{{ stage.id }}"><i class='bx bx-message-rounded-dots' style='color:#f0e3e3'></i></button>
+            <a href="{% url 'Student_Help:comments_stage' publication_id=stage.pk  %}" class="btn btn-outline-primary"><i class="fas fa-bars"></i></a>
+
+         </form>
+         <br>
+         <form method="post" action="{% url 'Student_Help:creer_commentaires' stage.id %}">
+            {% csrf_token %}
+            <div class="comment-input d-none">
+               <textarea class="form-control" name="comment" rows="3" placeholder="Ajouter un commentaire"></textarea><br>
+               <button type="submit" class="btn btn-primary submit-comment" data-id="{{ stage.id }}"><i class='bx bx-check' style='color:#f0e3e3'></i></button>
+               
+           </div>
+         </form> 
+      </div>
+   </div>
+   {% endfor %}
+   <!-- Section pour les Événements -->
+
+   <div class="card mb-3 text-center   smaller-card">
+      <div class="card-body">
+         <h2 class="card-text">Publié par: {{ evenement.user }} </h2>
+         <h3 class="card-text">Date: {{ evenement.date }}</h3>
+         {% for evenement in evenements %}
+         {% if user.is_authenticated %}
+                          {% if evenement.user == user %}
+         <a href="{% url 'Student_Help:modifier_post' evenement.pk %}" class="btn btn-outline-primary"><i class="fas fa-pen"></i></a>
+         <a href="{% url 'Student_Help:supprimer_post' evenement.pk %}" class="btn btn-outline-danger"><i class="fas fa-trash"></i></a>{% endif %}
+         {% endif %}
+         <h3 class="card-title">{{ evenement.intitulé }}</h3>
+         <p class="card-text">Lieu: {{ evenement.lieu }}</p>
+         <p class="card-text">description: {{ evenement.description }}</p>
+         <p class="card-text">contactInfo: {{ evenement.contactInfo }}</p>
+
+
+         {% if evenement.image %}
+         <img src="{{ evenement.image.url }}" style="height:300px; width:300px" alt="Image de la transport">
+     {% endif %}
+         <!-- Formulaire pour commenter -->
+         <form method="post" action="{% url 'Student_Help:like_event' evenement.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="evenement_id" value="{{ evenement.id }}">
+            <br>
+            <span class="likesCount">{{ evenement.likes_count }}</span> like(s) <br>
+            <button class="like-btn btn btn-primary" data-id="{{ evenement.id }}"><i class='bx bxs-like' style='color:#ffffff'></i></button>
+            <button type="button" class="btn btn-primary toggle-comment" data-id="{{ evenement.id }}"><i class='bx bx-message-rounded-dots' style='color:#f0e3e3'></i></button>
+            <a href="{% url 'Student_Help:comments_event' publication_id=evenement.pk %}" class="btn btn-outline-primary"><i class="fas fa-bars"></i></a>
+
+         </form>
+         <br>
+         <form method="post" action="{% url 'Student_Help:creer_commentairee' evenement.id %}">
+            {% csrf_token %}
+            <div class="comment-input d-none">
+               <textarea class="form-control" name="comment" rows="3" placeholder="Ajouter un commentaire"></textarea><br>
+               <button type="submit" class="btn btn-primary submit-comment" data-id="{{ evenement.id }}"><i class='bx bx-check' style='color:#f0e3e3'></i></button>
+               
+           </div>
+         </form> 
+      </div>
+   </div>
+   {% endfor %}
+</center>
+<!-- Script jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{% if alert_reservation_exists %}
+<script>
+    alert("Vous avez déjà réservé ce logement.");
+</script>
+{% endif %}
+<script>
+   $(document).ready(function() {
+     // Afficher/Masquer le champ de commentaire
+     $('.toggle-comment').click(function() {
+       var commentForm = $(this).closest('.card-body').find('.comment-input');
+       commentForm.toggleClass('d-none');
+     });
+
+     // Soumettre le formulaire de publication
+     $('#publication-form').submit(function(event) {
+       event.preventDefault();
+       var form = $(this);
+       var type = form.find('#type').val();
+       if (type === 'recommandation') {
+         window.location.href = "{% url 'Student_Help:ajoutRec' %}"; // Redirection vers la vue ajoutRec pour les recommandations
+       } else if (type === 'logement') {
+         window.location.href = "{% url 'Student_Help:ajoutLogement' %}"; // Redirection vers la vue ajoutLogement pour les logements
+       } else if (type === 'stage') {
+         window.location.href = "{% url 'Student_Help:ajoutStage' %}"; // Redirection vers la vue ajoutStage pour les stages
+       }else if (type === 'evenement') {
+         window.location.href = "{% url 'Student_Help:ajoutEvenement' %}"; // Redirection vers la vue ajoutStage pour les stages
+       }else if (type === 'transport') {
+         window.location.href = "{% url 'Student_Help:ajoutTransport' %}"; // Redirection vers la vue ajoutStage pour les stages
+       }
+     });})
+</script>
+{% endblock %}
+{% block footer %} {% endblock %}

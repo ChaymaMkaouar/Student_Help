@@ -1,0 +1,91 @@
+:root{
+    --violet:#6c5ce7;
+    --pink:#FC427B;
+    --gradient:linear-gradient(90deg, var(--violet), var(--pink));
+    }
+    *
+    {
+        margin: 0;
+        padding: 0;
+        outline: none;
+        border: none;
+        text-decoration: none;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+    body
+    {
+        background:#a094f853;
+    }
+    nav{
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        height: 900px;
+        left: 0;
+        background-color: #fff;
+        width: 90px;
+        overflow: hidden;
+        transition: width 0.2s linear;
+        box-shadow: 0 20px 35px rgba(0, 0, 0 ,0.1);
+    }
+    .logo
+    {
+        text-align: center;
+        display: flex;
+        transition: all 0.5s ease;
+    }
+    
+    .logo img{
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+    }
+    .logo span 
+    {
+        font-weight: bold;
+        padding: 15px;
+        font-size: 18px;
+        text-transform: uppercase;
+    }
+    
+    a
+    {
+        position: relative;
+        color: rgb(85, 83, 83);
+        font-size: 14px;
+        display: table;
+        width: 300px;
+        padding: 10px;
+    }
+    i
+    {
+        position: relative;
+        width: 70px;
+        height: 40px;
+        top:14px;
+        font-size: 20px;
+        text-align: center;
+    }
+    .nav-item
+    {
+        position: relative;
+        top:12px;
+        margin-left: 10px;
+    }
+    #aa:hover
+    {
+        background: #eee;
+    }
+    
+    nav:hover{
+        width:280px ;
+        transition: all 0.5s ease;
+    }
+    .logout
+    {
+        position: absolute;
+        bottom: 0;
+    }
+    
+    

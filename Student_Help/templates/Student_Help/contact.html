@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <link rel="stylesheet" href="{% static 'css/style2.css' %}">
+</head>
+<body>
+    <small>Entrez le message et cliquez sur le bouton "Envoyer"</small>
+    <form method='POST' action="{% url 'Student_Help:send'  %}">
+        {% csrf_token %}
+        <div class="wrapper centered">
+            <article class="letter">
+                <div class="side">
+                    <h1>Contacter nous</h1>
+                    <br>
+                    <p>
+                        name:<input type="text" name="name"><br>
+                        email:<input type="email" name="email"><br>
+                        message:<textarea name="message" id=""></textarea>
+                    </p>
+                </div>
+                <div class="side">
+                    <p>
+                        <button id="sendLetter">Envoyer</button>
+                    </p>
+                </div>
+            </article>
+            <div class="envelope front"></div>
+            <div class="envelope back"></div>
+        </div>
+    </form>
+    
+<p class="result-message centered">Merci pour votre message</p>
+<script src="{% static 'js/script2.js' %}"></script>
+</body>
+</html>

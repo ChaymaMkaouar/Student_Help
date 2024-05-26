@@ -1,0 +1,18 @@
+{% extends 'Student_Help/base.html' %}
+{% load static %}
+{% block title %} Page officielle {% endblock title %}
+{% block content %}
+<section class="home">
+
+    <div class="content">
+        <h3>nous créons cette plateforme pour aider les étudiants d'Iset SFAX</h3>
+        <p>Pour découvrir notre institut voir cette galerie</p>
+        <a href="{% url 'Student_Help:galerie' %}" class="btn"><i class="fa-solid fa-image"></i>Voir galerie</a>
+    </div>
+
+    <div class="image">
+        <img src="{% static 'image/home-img.svg' %}" alt="">
+    </div>
+
+</section>
+{% endblock %}

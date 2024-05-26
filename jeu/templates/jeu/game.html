@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Partie en cours</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid rgb(0, 0, 0);
+        }
+        td {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .playerX {
+            color: red;
+        }
+        .playerO {
+            color: green;
+        }
+        .cellX {
+            background-color: pink;
+        }
+        .cellO {
+            background-color: lightgreen;
+        }
+        .button-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <h1>Partie en cours :</h1>
+        <p>À jouer : <span id="activePlayer" class="playerX">X</span></p>
+        <table>
+            <tr>
+                <td id="cell_0"></td>
+                <td id="cell_1"></td>
+                <td id="cell_2"></td>
+            </tr>
+            <tr>
+                <td id="cell_3"></td>
+                <td id="cell_4"></td>
+                <td id="cell_5"></td>
+            </tr>
+            <tr>
+                <td id="cell_6"></td>
+                <td id="cell_7"></td>
+                <td id="cell_8"></td>
+            </tr>
+        </table>
+        <div class="button-container">
+            <button class="btn btn-outline-danger" id="quitButton" >Quitter </button>
+        </div>
+    </center>
+    
+    <script>
+        let activePlayer = "X";
+        let cells = Array.from(document.querySelectorAll("td"));
+        let gameWon = false;
+
+        const winningConditions = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8], // lignes
+            [0, 3, 6], [1, 4, 7], [2, 5, 8], // colonnes
+            [0, 4, 8], [2, 4, 6] // diagonales
+        ];
+
+        function checkWin(player) {
+            return winningConditions.some(condition => {
+                return condition.every(index => cells[index].innerText === player);
+            });
+        }
+
+        function checkDraw() {
+            return cells.every(cell => cell.innerText !== "");
+        }
+
+        function endGame(winner) {
+            alert(`Le joueur ${winner} a gagné !`);
+            resetGame();
+        }
+
+        function resetGame() {
+            cells.forEach(cell => {
+                cell.innerText = "";
+                cell.classList.remove("cellX", "cellO");
+            });
+            activePlayer = "X";
+            gameWon = false;
+            document.getElementById("activePlayer").innerText = activePlayer;
+            document.getElementById("activePlayer").classList.remove("playerO");
+            document.getElementById("activePlayer").classList.add("playerX");
+        }
+
+        function makeMove(position) {
+            if (!gameWon && cells[position].innerText === "") {
+                cells[position].innerText = activePlayer;
+                cells[position].classList.add(activePlayer === "X" ? "cellX" : "cellO");
+                if (checkWin(activePlayer)) {
+                    gameWon = true;
+                    endGame(activePlayer);
+                } else if (checkDraw()) {
+                    alert("Match nul !");
+                    resetGame();
+                } else {
+                    activePlayer = activePlayer === "X" ? "O" : "X";
+                    document.getElementById("activePlayer").innerText = activePlayer;
+                    if (activePlayer === "X") {
+                        document.getElementById("activePlayer").classList.remove("playerO");
+                        document.getElementById("activePlayer").classList.add("playerX");
+                    } else {
+                        document.getElementById("activePlayer").classList.remove("playerX");
+                        document.getElementById("activePlayer").classList.add("playerO");
+                    }
+                }
+            }
+        }
+
+        function quitGame() {
+    if (confirm("Êtes-vous sûr de vouloir quitter la partie ?")) {
+        var homeUrl = "{% url 'jeu:home' %}";
+        window.location.href = homeUrl;
+    }
+}
+
+
+        document.querySelectorAll("td").forEach((cell, index) => {
+            cell.addEventListener("click", () => {
+                makeMove(index);
+            });
+        });
+
+        document.getElementById("quitButton").addEventListener("click", quitGame);
+    </script>
+</body>
+</html>

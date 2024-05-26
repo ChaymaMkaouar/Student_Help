@@ -1,0 +1,146 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Lato:400i,600");
+
+        body {
+            margin: 0px;
+            padding: 20vmin 20vmin 20vmin 30vmin;
+            text-align: center;
+            font-family: 'Lato';
+            color: rgba(0,0,0,0.6);
+            font-weight: 400;
+            font-style: italic;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        :root{
+            --violet:#6c5ce7;
+            --pink:#FC427B;
+            --gradient:linear-gradient(90deg, var(--violet), var(--pink));
+        }
+
+        .body {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100vw;
+            height: 100vh;
+            filter: blur(10px);
+            transform: scale(1.2);
+            animation: getBlurry 0.5s linear;
+            background: var(--gradient);
+            background-size: cover;
+        }
+
+        @keyframes getBlurry {
+            0% {
+                filter: blur(0px);
+                transform: scale(1);
+            }
+            100% {
+                filter: blur(10px);
+                transform: scale(1.2);
+            }
+        }
+
+        .chat {
+            position: relative;
+            display: inline-block;
+            width: 40vw;
+            min-width: 400px;
+            max-width: 80%;
+            animation: popFromBottom 0.5s ease-in-out;
+            margin-bottom: 90px; /* Ajout de marge en bas */
+        }
+
+        @keyframes popFromBottom {
+            0% {
+                transform: translateY(300px) scale(0);
+            }
+            100% {
+                transform: translateY(0px) scale(1);
+            }
+        }
+
+        img {
+            height: 22vmin;
+            margin-left: -30%;
+        }
+
+        .profile {
+            display:  inline-block;
+            width: 15vmin;
+            height: 15vmin;
+            border-radius:  50%;
+            overflow:  hidden;
+            position: absolute;
+            left: -16vmin;
+            top: -2vmin;
+            border: 1vmin solid #fff;
+        }
+
+        .message {
+            background: #ffe271;
+            padding: 2vmin 5vmin 2vmin 10vmin;
+            border-radius: 0px 50px 50px 0px;
+            font-size: 3vmin;
+            text-align: left;
+        }
+
+        .user {
+            text-align: left;
+            padding: 2px 30px 5px 60px;
+            border-radius: 0px 0px 20px;
+            font-size: 3.2vmin;
+            background: #fff;
+            color: #83aebd;
+            display: inline-block;
+            float: left;
+            font-weight: 600;
+            font-style: normal;
+        }
+    </style>
+</head>
+<body>
+    <div class="body"></div>
+    {% for notification in notifications %}
+    <div class="chat">
+        <div class="profile">
+            <img src="{% static 'image/compte-utilisateur-1.png' %}" alt=''>
+        </div>
+        <div class="message">
+            {{ notification.like.user }} like your post! {{ notification.timestamp }}<br>
+            comment on your post ! {{ notification.timestamp }}<br>
+        </div>
+        <div class="user">
+            {{ notification.like.user }}
+            {{ notification.commentaire.user }}
+        </div>
+    </div>
+    {% endfor %}
+
+    <!-- Ajout de la deuxième boucle for -->
+    {% for notificationsts in notificationst %}
+    <div class="chat">
+        <div class="profile">
+            <img src="{% static 'image/compte-utilisateur-1.png' %}" alt=''>
+        </div>
+        <div class="message">
+            {{ notificationsts.like.user }} like your post! {{ notificationsts.timestamp }}<br>
+            comment on your post ! {{ notificationsts.timestamp }}<br>
+        </div>
+        <div class="user">
+            {{ notificationsts.like.user }}
+            {{ notificationsts.commentaire.user }}
+        </div>
+    </div>
+    {% endfor %}
+</body>
+<script src="{% static 'js/script3.js' %}"></script>
+</html>

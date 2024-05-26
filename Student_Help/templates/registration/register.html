@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Help</title>
+ 
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="{% static 'css/style3.css' %}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+   
+</head>
+<body>
+ 
+<center>
+   <div class="overlay">
+      <form method="post">
+         <div class="con">
+         <header class="head-form">
+           <h2>S'inscrire</h2> 
+         </header>
+
+ {% csrf_token %}
+ <table>
+    {% for field in form %}
+    <tr>
+    <td>{{ field.label_tag }}</td>
+    <td>{{ field }}</td>
+    </tr>
+    {% for error in field.errors %}
+    <tr><td></td><td class="alert alert-danger">{{ error }}</td></tr>
+    {% endfor %}
+    {% endfor %}
+    </table><br>
+    <button type="submit" class="btn btn-outline-success">s'inscrire</button> 
+    <div>
+    <small>
+    Déjà inscrit.e?
+    <a href="{% url 'login' %}" style="color: rgb(16, 139, 12);">Se connecter</a>
+    </small>
+    </div></center>
+    <script src="{% static 'js/script3.js' %}"></script>
+   </form>
+</div>
+   </body>
+   </html>
+   
